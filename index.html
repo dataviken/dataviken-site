@@ -45,7 +45,7 @@
       text-shadow: 0 0 10px rgba(0,0,0,0.6);
     }
     form {
-      display: flex;
+      display: none;
       flex-direction: column;
       gap: 0.8rem;
       width: 90%;
@@ -67,6 +67,12 @@
       color: #ffffff;
       cursor: pointer;
     }
+    #confirmation-message {
+      display: none;
+      font-size: 1.2rem;
+      color: #ccc;
+      margin-top: 2rem;
+    }
     footer {
       font-size: 0.9rem;
       color: #dddddd;
@@ -80,7 +86,7 @@
 </head>
 <body>
   <header>
-    <div class="form-toggle" onclick="document.querySelector('form').style.display = 'flex'; this.style.display = 'none';">
+    <div class="form-toggle" onclick="toggleForm()">
       Kontakta oss
     </div>
   </header>
@@ -94,6 +100,7 @@
       <textarea name="message" rows="5" placeholder="Ditt meddelande" required></textarea>
       <button type="submit">Skicka</button>
     </form>
+    <div id="confirmation-message">Meddelandet är insamlat. Vi ser dig.</div>
   </main>
 
   <footer>
@@ -101,6 +108,13 @@
   </footer>
 
   <script>
+    function toggleForm() {
+      const form = document.querySelector('form');
+      const toggle = document.querySelector('.form-toggle');
+      form.style.display = 'flex';
+      toggle.style.display = 'none';
+    }
+
     function handleSubmit(e) {
       e.preventDefault();
       const form = e.target;
@@ -113,11 +127,8 @@
         },
       }).then((response) => {
         if (response.ok) {
-          form.innerHTML = `
-            <p style="font-size: 1.2rem; color: #ccc; margin-top: 2rem;">
-              Meddelandet är insamlat. Vi ser dig.
-            </p>
-          `;
+          form.style.display = 'none';
+          document.getElementById('confirmation-message').style.display = 'block';
         } else {
           form.innerHTML = `
             <p style="font-size: 1.2rem; color: #ff6a6a; margin-top: 2rem;">
