@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dataviken</title>
+  <link rel="icon" type="image/png" href="favicon.png">
   <style>
     body {
       margin: 0;
@@ -113,6 +114,7 @@
       const toggle = document.querySelector('.form-toggle');
       form.style.display = 'flex';
       toggle.style.display = 'none';
+      history.pushState(null, '', '#kontakt');
     }
 
     function handleSubmit(e) {
@@ -129,6 +131,7 @@
         if (response.ok) {
           form.style.display = 'none';
           document.getElementById('confirmation-message').style.display = 'block';
+          history.pushState(null, '', '#tack');
         } else {
           form.innerHTML = `
             <p style="font-size: 1.2rem; color: #ff6a6a; margin-top: 2rem;">
