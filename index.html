@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dataviken</title>
-  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" type="image/png" href="dataviken-icon.png">
   <style>
     body {
       margin: 0;
@@ -21,8 +21,13 @@
     }
     header {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
+      align-items: center;
       padding: 1rem 2rem;
+    }
+    .logo {
+      cursor: pointer;
+      height: 40px;
     }
     .form-toggle {
       font-size: 0.95rem;
@@ -87,6 +92,7 @@
 </head>
 <body>
   <header>
+    <img src="dataviken-logo.png" alt="Dataviken" class="logo" onclick="resetPage()">
     <div class="form-toggle" onclick="toggleForm()">
       Kontakta oss
     </div>
@@ -114,7 +120,14 @@
       const toggle = document.querySelector('.form-toggle');
       form.style.display = 'flex';
       toggle.style.display = 'none';
-      history.pushState(null, '', '#kontakt');
+      history.pushState({ formVisible: true }, '', '#kontakt');
+    }
+
+    function resetPage() {
+      document.querySelector('form').style.display = 'none';
+      document.querySelector('.form-toggle').style.display = 'block';
+      document.getElementById('confirmation-message').style.display = 'none';
+      history.pushState(null, '', '/');
     }
 
     function handleSubmit(e) {
@@ -131,7 +144,7 @@
         if (response.ok) {
           form.style.display = 'none';
           document.getElementById('confirmation-message').style.display = 'block';
-          history.pushState(null, '', '#tack');
+          history.pushState({ formVisible: false }, '', '#tack');
         } else {
           form.innerHTML = `
             <p style="font-size: 1.2rem; color: #ff6a6a; margin-top: 2rem;">
@@ -141,6 +154,10 @@
         }
       });
     }
+
+    window.addEventListener("popstate", () => {
+      resetPage();
+    });
   </script>
 </body>
 </html>
