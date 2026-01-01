@@ -1,0 +1,228 @@
+:root{
+  --bg: #07080A;
+  --fg: #ECEEF3;
+  --muted: rgba(236,238,243,0.74);
+  --muted2: rgba(236,238,243,0.58);
+  --accent: #FFFFFF;
+
+  --glass: rgba(255,255,255,0.10);
+  --glass2: rgba(255,255,255,0.14);
+  --border: rgba(255,255,255,0.16);
+  --border2: rgba(255,255,255,0.25);
+}
+
+*{ box-sizing: border-box; }
+html, body { height: 100%; }
+
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  background: var(--bg);
+  color: var(--fg);
+  overflow: hidden;
+}
+
+/* Canvas full page */
+#rift{
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display:block;
+  z-index: 0;
+}
+
+/* premium vignette overlay */
+body::before{
+  content:"";
+  position: fixed;
+  inset:0;
+  background:
+    radial-gradient(1200px 650px at 50% 30%, rgba(255,255,255,0.09), transparent 55%),
+    radial-gradient(900px 450px at 50% 65%, rgba(255,255,255,0.05), transparent 58%),
+    radial-gradient(1200px 900px at 50% 100%, rgba(0,0,0,0.48), rgba(0,0,0,0.70));
+  pointer-events:none;
+  z-index: 1;
+}
+
+.wrap{
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  padding: 28px 24px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+/* top nav */
+.top{
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  padding: 8px 2px;
+}
+
+.brand{
+  font-weight: 680;
+  letter-spacing: 0.2px;
+  font-size: 18px;
+  opacity: 0.96;
+}
+
+.link{
+  color: var(--muted2);
+  text-decoration: none;
+  font-weight: 650;
+  border-bottom: 1px solid rgba(255,255,255,0.20);
+  padding-bottom: 2px;
+}
+.link:hover{
+  color: var(--fg);
+  border-bottom-color: rgba(255,255,255,0.55);
+}
+
+/* hero */
+.hero{
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  padding: 14px 2px 0;
+}
+
+h1{
+  font-size: clamp(44px, 6vw, 82px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  margin: 0;
+  font-weight: 780;
+}
+
+.accent{
+  color: var(--accent);
+}
+
+.sub{
+  margin:0;
+  font-size: clamp(16px, 2vw, 21px);
+  color: var(--muted);
+  max-width: 720px;
+  letter-spacing: -0.01em;
+}
+
+/* CTA */
+.cta{
+  margin-top: 22px;
+  display:flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width: fit-content;
+  padding: 13px 18px;
+  border-radius: 14px;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  text-decoration:none;
+  font-weight: 720;
+  letter-spacing: 0.15px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.button:hover{
+  transform: translateY(-1px);
+  background: var(--glass2);
+  border-color: var(--border2);
+}
+
+.email{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  color: var(--muted2);
+  font-weight: 650;
+}
+
+.email a{
+  color: var(--muted2);
+  text-decoration:none;
+  border-bottom: 1px solid rgba(255,255,255,0.16);
+  padding-bottom: 2px;
+}
+.email a:hover{
+  color: var(--fg);
+  border-bottom-color: rgba(255,255,255,0.40);
+}
+
+.dot{
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.55);
+  box-shadow: 0 0 18px rgba(255,255,255,0.32);
+}
+
+.foot{
+  margin-top: 36px;
+  color: rgba(236,238,243,0.35);
+  font-size: 13px;
+  letter-spacing: 0.2px;
+}
+
+/* ✅ Mobile: centered like your screenshot */
+@media (max-width: 640px){
+  .wrap{ padding: 18px 16px; }
+  .top{ width:100%; padding: 8px 0; }
+
+  .brand{ font-size: 16px; }
+  .link{ font-size: 14px; }
+
+  .hero{
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    padding-top: 28px;
+    gap: 14px;
+  }
+
+  h1{
+    font-size: clamp(40px, 9.5vw, 58px);
+    letter-spacing: -0.02em;
+  }
+
+  .sub{
+    font-size: 16px;
+    max-width: 320px;
+    line-height: 1.45;
+  }
+
+  .cta{ align-items: center; margin-top: 16px; gap: 12px; }
+
+  .button{
+    width: 100%;
+    max-width: 320px;
+    padding: 15px 16px;
+    border-radius: 16px;
+    font-size: 16px;
+  }
+
+  .email{ justify-content: center; font-size: 14px; }
+
+  .foot{ margin-top: 28px; font-size: 12px; }
+}
+
+@media (max-width: 360px){
+  .sub{ max-width: 280px; }
+  .button{ max-width: 280px; }
+}
